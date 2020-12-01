@@ -1,0 +1,277 @@
+ren  plus
+/////////////////////
+contract  RENPlus  {
+ string public constant name = "REN Plus";
+  string public constant symbol = "RENS";        
+  uint8 public constant decimals = 18;
+  uint256 public totalSupply;
+  address  owner;
+  uint32 ex=10000;
+  address SysAd0;
+  address RepublicTokenAdd=0x7e160F5CF87e44CBe6b1337bB883f453445391de;
+    mapping (address => uint256) public balanceOf;
+    mapping (address => mapping (address => uint256)) public allowance;
+    event Transfer(address indexed from, address indexed to, uint256 value);
+    event Burn(address indexed from, uint256 value);
+    mapping (address => bool) admin;
+
+   function RENPlus () public {
+      totalSupply = 10200000 ether;                          // Update total supply
+      balanceOf[msg.sender] = totalSupply;
+	  owner = msg.sender;                             //  
+	  admin[owner]=true;
+       RepublicTokenAdd=0x7e160F5CF87e44CBe6b1337bB883f453445391de;//RepublicToken
+ 
+    }
+
+    function transfer(address _from, address _to, uint _value) internal {
+        require(_to != 0x0);
+        require(balanceOf[_from] >= _value);
+        require(balanceOf[_to] + _value > balanceOf[_to]);
+        uint previousBalances = balanceOf[_from] + balanceOf[_to];
+        balanceOf[_from] -= _value;
+        balanceOf[_to] += _value;
+        Transfer(_from, _to, _value);
+        assert(balanceOf[_from] + balanceOf[_to] == previousBalances);
+    }
+
+    function transfer(address _to, uint256 _value) public {
+        transfer(msg.sender, _to, _value);
+    }
+
+    function transferFrom(address _from, address _to, uint256 _value) public returns (bool success) {
+        require(_value <= allowance[_from][msg.sender] && _value >0);     // Check allowance
+        allowance[_from][msg.sender] -= _value;
+        transfer(_from, _to, _value);
+        return true;
+    }
+
+    function approve(address _spender, uint256 _value) public
+        returns (bool success) {
+        require( _value>0);    
+        allowance[msg.sender][_spender] = _value;
+        return true;
+    }
+
+
+    function burn(uint256 _value) public returns (bool success) {
+        require(balanceOf[msg.sender] >= _value && _value>0 );
+        balanceOf[msg.sender] -= _value;
+        totalSupply -= _value;
+        Burn(msg.sender, _value);
+        return true;
+    }
+
+    function burnFrom(address _from, uint256 _value) public returns (bool success) {
+        require(balanceOf[_from] >= _value);
+        require(_value <= allowance[_from][msg.sender]);
+        balanceOf[_from] -= _value;
+        allowance[_from][msg.sender] -= _value;
+        totalSupply -= _value;
+        Burn(_from, _value);
+        return true;
+    }
+ ///////////////////////////////////////////////////////////////////////////////////////
+
+    function setadmin (address _admin,bool _yn) public {
+    require(admin[msg.sender]==true);
+    admin[_admin]=_yn;
+   }
+//////////////////////////////////////
+    function mint(address _ad,uint256 _sl) public  {    
+    require(admin[msg.sender]==true);
+    require(totalSupply<100000000 ether);
+    balanceOf[_ad]+= _sl;
+       totalSupply+= _sl;
+        Transfer(0, _ad, _sl);
+    }
+ 
+   
+  ///////////
+
+}
+///////////////////////////////////////////////
+contract RepublicToken {
+  function allowance(address owner, address spender) public view returns (uint256);
+  function transferFrom(address from, address to, uint256 value) public returns (bool);
+  function approve(address spender, uint256 value) public returns (bool);
+  event Approval(address indexed owner, address indexed spender, uint256 value);
+  function transferTokens(address beneficiary, uint256 amount) public returns (bool);
+  uint256 public totalSupply;
+  function balanceOf(address who) public view returns (uint256);
+  function transfer(address to, uint256 value) public returns (bool);
+  event Transfer(address indexed from, address indexed to, uint256 value);
+  
+}
+/////////////////////////////////////////////////////////////////
+contract  Rend28 {
+    // 
+    address owner; 
+    address RENDPlusAdd=0x5354A064e868139196A80d67ac45f11F2bf1B3c3;
+    address RENADD=0x408e41876cCCDC0F92210600ef50372656052a38;
+ ............................................
+    /////system
+  //  uint256 newnow=now;//
+    uint256 time0=24 hours;//
+..........................................
+    uint256 BuEthmax=10000 ether;// 
+    uint256 MsZtNumMax=1400000 ether;// 
+      //NODE
+    uint256 ms1T1=150 *time0;//  
+  ...................................
+    mapping (address =>address) MsFa;// 
+........................................
+    /// 
+    uint32 lsxh; //
+    mapping (uint32 =>uint256) lsbh; //
+......................................................
+    
+    // 
+
+    uint16[25] dynam; //
+    RENPlus t1=RENPlus(RENDPlusAdd); // 
+    RepublicToken t2=  RepublicToken(RENADD) ;    //ren
+    //
+  function Rend28 () public {
+    ///////////
+    owner = msg.sender;// 
+...................................
+     dynam[1]=20;
+     dynam[2]=10;
+     dynam[3]=5; 
+     dynam[4]=4; 
+     dynam[5]=4;
+     dynam[6]=3;
+     dynam[7]=3;
+     dynam[8]=2; 
+     dynam[9]=2;
+     dynam[10]=1;
+     dynam[11]=1;
+     dynam[12]=1;
+     dynam[13]=1; 
+     dynam[14]=1; 
+     dynam[15]=1;
+     dynam[16]=1;
+     dynam[17]=1;
+     dynam[18]=1; 
+     dynam[19]=1;
+     dynam[20]=1;
+     dynam[21]=1;
+     dynam[22]=1;
+     dynam[23]=1; 
+     dynam[24]=1;
+ }
+/////////////////////////////////////////////////////////////////////////
+
+    //
+    function cCset ()  public view  returns (address _RENDPlusAdd,address _RENADD,uint32 _exchange,uint256 _BuEthmax,uint256 _ed,uint256 _MsZtNumMax){
+    require(MsCx[msg.sender]==true);
+    return( RENDPlusAdd, RENADD, exchange, BuEthmax,ed, MsZtNumMax);
+    }
+    //////////////////////
+     
+/////// 
+    function jo(address _s,address _x,uint256 _Rennum) public payable returns(bool){    
+    require(msg.sender==_x);///////////////////////////////////////
+    require(_Rennum >=ed && _Rennum  <=BuEthmax);   //
+    require( MsBuTime[_s]>0 &&  MsBuTime[_x]==0 );   /////////
+.....................
+    require(_x==fsad );  
+    return true;
+    }
+    /////////////////////////////////
+
+/////////
+ function cont1 (address _co2,uint256 _Rennum) public payable returns(bool){
+    require(msg.sender==_co2 && MsBuTime[_co2]>0);///
+    require(_Rennum >=MsBuAmo[_co2] && _Rennum  <=BuEthmax );   //////
+    require((MsBuActTime[_co2]+1*time0) <now); //
+    address fsad=_co2;//
+ .....................................
+     return true;
+}    
+   //////////////////
+
+ ////
+   function conti2 (uint32 _ywbh3,address _co3,uint256 _Rennum) public payable returns(bool){
+     require(msg.sender==_co3 );///
+     require(_Rennum >=MsBuAmo[_co3] && _Rennum  <=BuEthmax  ); 
+     require((MsBuActTime[_co3]+1*time0) <now); 
+..........................................
+    fsad=cont0(_co3,_Rennum,false);//
+    ////////////////////////
+..........................................
+      return true;
+ }
+//////////////////////////
+    function cont0 (address _co1,uint256 _nu1,bool _zt)  internal   returns(address){  
+    address _this=this;
+.........................................
+
+    BuRenNum+=_nu1;// 
+................................................
+    }    
+...........................................
+...................
+    }  
+
+///////////////////
+    function col1(uint32 _ywbh,address _ad4) public payable returns(bool){
+
+    require( msg.sender==_ad4);/////////////////
+    require( _ywbh>0 && _ywbh<=MsBuTotal[_ad4]  );  
+
+    uint256 ywbh1t;
+  .......................................
+    return true;
+    }
+///////////////////////////////
+    ////////////
+    function col2(address _ad) public  returns(bool){
+    require( msg.sender==_ad);//////////////////////////////    
+    require( MsWFC[_ad]>=(MsRec[_ad]+ed/5) );////////////
+..............................   
+    }
+/////////////////////
+    function cColl(address _ad) public view  returns (uint256 _num){
+...................
+    return(MsWFC[_ad]-MsRec[_ad]);
+}
+/////////////////////////
+    function cNode(address _ad2) public view  returns ( bool _Ms1b, address _Ms1Gene,uint256 _Ms1Time,uint256 _Ms1N0){
+    require( MsCx[msg.sender]==true||msg.sender==_ad2);
+................................
+}
+
+///////////////////
+    function cAdd1(address _ad3) public view  returns (uint32 _MsAdToN,address _MsFa, uint32 _MsSon,uint32 _MsFN,uint256 _MsZtNum,uint256 _msbuTime) {
+    require( MsCx[msg.sender]==true||msg.sender==_ad3);
+    return............................. 
+}
+///////////////////////
+    function cAdd2(address _ad1) public view  returns (uint256  _MsWFC,uint256 _MsRec,uint32 _MsBuTotal,uint256 _MsBuActTime,uint256 _MsBuAmo,uint256 _MsBuReN){
+    require( MsCx[msg.sender]==true||msg.sender==_ad1);
+    return ................................
+}
+///////////////////////////
+    function cBls(uint32 _lsxh1) public view  returns (address _bhlsToAdd,uint256 _ywbh3,uint _time,uint sjc,uint8 _ywzt,uint256 _bizNum) {
+    require(MsCx[msg.sender]==true);
+   uint256 ywbh2t=lsbh[_lsxh1]; 
+   return ...............................
+}
+////////////////
+    function cBla(uint32 _ywbh,address _ad) public view  returns (uint8 _ywzt, uint32 _lsxh,uint256 _ywbh3,uint _time,uint sjc,uint256 _bizNum) {
+     require( MsCx[msg.sender]==true||msg.sender==_ad);
+    uint256 ywbh2t;    
+    ywbh2t=MsAdToN[_ad]*100000+_ywbh;
+    return ..........................
+}
+///////////////////
+    function cadnum(uint32 _addnum) public view  returns (address _MsNToAd,uint256 _BuEthNum,uint32 _lsxh0,uint32 _Msnum,uint256 _now) {
+    require(MsCx[msg.sender]==true);
+    return (MsNToAd[_addnum],BuRenNum,lsxh,Msnum,now);
+}
+///////////////////////
+	function() payable public  {
+    }
+}
